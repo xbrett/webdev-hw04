@@ -3,45 +3,80 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
 export default function game_init(root) {
-  ReactDOM.render(<Starter />, root);
+  ReactDOM.render(<Memory />, root);
 }
 
-class Starter extends React.Component {
+class Memory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { left: false };
+    this.state = { 
+      score: 0,
+      tiles: _.shuffle(['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D',
+                         'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']),
+      clickable: true,
+      tileSelected: '',
+      remainingPairs: 8
+     };
   }
 
-  swap(_ev) {
-    let state1 = _.assign({}, this.state, { left: !this.state.left });
-    this.setState(state1);
+  tileClicked(tile) {
+
   }
 
-  hax(_ev) {
-    alert("hax!");
+  match(tile) {
+
+  }
+
+  noMatch(tile) {
+
+  }
+
+  checkMatch(tile) {
+
+  }
+
+  gameOver() {
+
+  }
+
+  restart() {
+
   }
 
   render() {
-    let button = <div className="column" onMouseMove={this.swap.bind(this)}>
-      <p><button onClick={this.hax.bind(this)}>Click Me</button></p>
-    </div>;
-
-    let blank = <div className="column">
-      <p>Nothing here.</p>
-    </div>;
-
-    if (this.state.left) {
-      return <div className="row">
-        {button}
-        {blank}
-      </div>;
-    }
-    else {
-      return <div className="row">
-        {blank}
-        {button}
-      </div>;
-    }
+    return (
+      <div className="center">
+        <h1>Memory Game</h1>
+        <table className="tile-grid">
+          <tbody>
+            <DisplayTiles root={this} tiles={this.state.tiles} />
+          </tbody>
+        </table>
+        <p>Score: {this.state.score}</p>
+      </div>
+    );
   }
+}
+
+function DisplayTiles(props) {
+  let { root, tiles } = props;
+
+  let grid = [];
+  let index = 0;
+
+  for (let i = 0; i < 4; i++) {
+    let row = [];
+    for (let j = 0; j < 4; j++) {
+      row.push(
+        <td key={index} onClick={root.checkMatch.bind(root)}>
+          <div data-key={index} className="tile">{`${tiles[index]}`}</div>
+        </td>
+      );
+      index++;
+    }
+
+    grid.push(<tr key={i}>{row}</tr>);
+  }
+  return grid;
 }
 
