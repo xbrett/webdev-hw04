@@ -34,13 +34,12 @@ tr {
     font-size: 50px;
 }
 
-.tile-grid {
+.gameboard {
     margin: auto auto auto;
     width: 45%;
 }
 
 .memory-game {
     text-align: center; 
-    padding: 10px; 
 }
 

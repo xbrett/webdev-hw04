@@ -37,13 +37,13 @@ class Memory extends React.Component {
 
   checkMatch(tile) {
     if (this.state.tileClicked.firstChild.innerText == tile.firstChild.innerText) {
-      this.match(tile);
+      this.match();
     } else {
       this.noMatch(tile);
     }
   }
 
-  match(tile) {
+  match() {
     this.setState(_.assign({}, this.state, {
       tileClicked: '',
       score: this.state.score + 1,
@@ -54,7 +54,7 @@ class Memory extends React.Component {
 
   noMatch(tile) {
     this.setState(_.assign({}, this.state, {score: this.state.score + 1}));
-    setTimeout(() => {
+    window.setTimeout(() => {
         tile.firstChild.classList.remove('visible');
         this.state.tileClicked.firstChild.classList.remove('visible');
         this.setState(_.assign({}, this.state, {tileClicked: '', clickable: true }));
@@ -63,7 +63,7 @@ class Memory extends React.Component {
 
   gameOver() {
     if (this.state.remainingPairs == 0) {
-      setTimeout(() => {
+      window.setTimeout(() => {
         alert("Winner!\nScore: " + this.state.score);
       }, 1000);
     }
@@ -77,34 +77,44 @@ class Memory extends React.Component {
     return (
       <div className="memory-game">
         <h1>Memory Game</h1>
-        <table className="tile-grid">
+        <table className="gameboard">
           <tbody>
-            <DisplayTiles root={this} tiles={this.state.tiles} />
+            <RenderBoard root={this} tiles={this.state.tiles}/>
           </tbody>
         </table>
-        <p>Score: {this.state.score}</p>
+        <h4>Current score: {this.state.score}</h4>
+        <button type="button" onClick={this.restart}>Reset</button>
       </div>
     );
   }
 }
 
-function DisplayTiles(props) {
+function RenderBoard(props) {
   let { root, tiles } = props;
-  let grid = [];
-  let index = 0;
+  let board = [];
+  let width = 4;
 
-  for (let i = 0; i < 4; i++) {
-    let row = [];
-    for (let j = 0; j < 4; j++) {
-      row.push(
-        <td key={index} onClick={root.handleClick.bind(root)}>
-          <div data-key={index} className="tile">{`${tiles[index]}`}</div>
-        </td>
-      );
-      index++;
-    }
-    grid.push(<tr key={i}>{row}</tr>);
+  for (let i = 0; i < width; i++) {
+    board.push(
+      <tr key={i}>
+        <RenderRow root={root} tiles={tiles.slice(i*width, i*width+4)} index={i*width}/>
+      </tr>
+    );
   }
-  return grid;
+  return board;
 }
 
+function RenderRow(props) {
+  let { root, tiles, index } = props;
+  let row = [];
+
+  for (let j = 0; j < tiles.length; j++) {
+    row.push(
+      <td key={index} onClick={root.handleClick.bind(root)}>
+        <div data-key={index} className="tile">{`${tiles[j]}`}</div>
+      </td>
+    );
+    index++;
+  }
+  return row;
+}
