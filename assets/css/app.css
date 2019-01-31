@@ -7,3 +7,34 @@
     text-align: center;
 }
 
+td {
+    text-align: center;
+    border: 1px solid gray;
+    padding: 0;
+}
+
+td .tile {
+    backface-visibility: hidden;
+    background-color: rgb(194, 186, 212);
+    transform: rotateY(180deg);
+    transition: transform .375s, background-color .375s;
+}
+
+td .tile.visible {
+    transform: rotateY(0);
+    backface-visibility: visible; 
+}
+
+tr {
+    font-size: 50px;
+}
+
+.tile-grid {
+    margin: auto auto auto;
+    width: 45%;
+}
+
+.memeory-game {
+    text-align: center; 
+}
+
