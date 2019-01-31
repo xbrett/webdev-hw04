@@ -8,6 +8,11 @@
 }
 
 td {
+    /* The following image is from imgur: https://imgur.com/r/NEU/FrFAu */
+    background-image: url('https://i.imgur.com/2FEflUQ.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
     border: 1px solid gray;
     padding: 0;
@@ -22,7 +27,7 @@ td .tile {
 
 td .tile.visible {
     transform: rotateY(0);
-    backface-visibility: visible; 
+    backface-visibility: hidden; 
 }
 
 tr {
@@ -34,7 +39,8 @@ tr {
     width: 45%;
 }
 
-.memeory-game {
+.memory-game {
     text-align: center; 
+    padding: 10px; 
 }
 
