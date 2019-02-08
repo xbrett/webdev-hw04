@@ -90,13 +90,14 @@ function RenderRow(props) {
     if (tiles[j].visible) {
       row.push(
         <td key={tiles[j].key} onClick={() =>  root.handleClick(tiles[j])}>
-          <div data-key={tiles[j].key} className="tile visible">{`${tiles[j].letter}`}</div>
+          <div data-key={tiles[j].key} className="tile visible">{tiles[j].letter}</div>
         </td>
       );
     } else {
       row.push(
+        //{`${tiles[j].letter}`}
         <td key={tiles[j].key} onClick={() => { root.handleClick(tiles[j])}}>
-          <div data-key={tiles[j].key} className="tile">{`${tiles[j].letter}`}</div>
+          <div data-key={tiles[j].key} className="tile">{tiles[j].letter}</div>
         </td>
       );
     }
