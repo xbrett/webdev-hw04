@@ -24,5 +24,5 @@ _build/prod/rel/draw/bin/practice stop || true
 
 echo "Starting app..."
 
-_build/prod/rel/memory/bin/memory foreground
+_build/prod/rel/memory/bin/memory start
 
