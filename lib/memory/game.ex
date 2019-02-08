@@ -19,7 +19,6 @@ defmodule Memory.Game do
   end
 
   def client_view(game) do
-    #tiles = mask_hidden_tiles(game.tiles)
     %{
       score: game.score,
       tiles: game.tiles,
@@ -27,17 +26,6 @@ defmodule Memory.Game do
       secondClicked: game.secondClicked
     }
   end
-
-  # def mask_hidden_tiles(tiles) do
-  #   tiles
-  #   |> Enum.map(fn tile ->
-  #     if tile.visible do
-  #       tile
-  #     else
-  #       %{letter: "X", visible: false, matched: false, key: tile.key}
-  #     end
-  #   end)
-  # end
 
   def set_visible(game, tile) do
     ts = Enum.map(game.tiles, fn itm ->
@@ -65,7 +53,7 @@ defmodule Memory.Game do
       and game.firstClicked.key != tile.key do
         Map.put(game, :secondClicked, tile)
           |> Map.put(:score, game.score + 1)
-          |>check_match()
+          |> check_match()
     else
       game
     end
@@ -73,7 +61,7 @@ defmodule Memory.Game do
 
   def check_match(game) do
     if game.firstClicked != nil and game.secondClicked != nil do
-      Process.sleep(800)
+      Process.sleep(500)
       if (game.firstClicked.letter == game.secondClicked.letter) do
         tiles = update_tiles(game, %{visible: true, matched: true})
         Map.put(game, :tiles, tiles)

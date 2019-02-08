@@ -43,6 +43,7 @@ class Memory extends React.Component {
     if (this.state.firstClicked != null && this.state.secondClicked == null) {
       this.channel.push("get_second", {tile: tile})
           .receive("ok", this.updateView.bind(this));
+
     }
   }
 
@@ -95,13 +96,11 @@ function RenderRow(props) {
       );
     } else {
       row.push(
-        //{`${tiles[j].letter}`}
         <td key={tiles[j].key} onClick={() => { root.handleClick(tiles[j])}}>
           <div data-key={tiles[j].key} className="tile">{tiles[j].letter}</div>
         </td>
       );
-    }
-    
+    } 
   }
   return row;
 }
